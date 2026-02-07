@@ -1,10 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-import re
-import logging
 from dotenv import load_dotenv
-import dateparser
 import os
 
 load_dotenv()
@@ -30,5 +27,7 @@ class MeetBot(commands.Bot):
         await self.tree.sync(guild=GUILD_ID)
         print("Commands synced!")
 
-client = MeetBot()
-client.run(TOKEN)
+bot = MeetBot()
+
+if __name__ == "__main__":
+    bot.run(TOKEN)
