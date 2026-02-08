@@ -8,6 +8,7 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD_ID = discord.Object(id=1469781030989992091)
 
+
 intents = discord.Intents.default()
 intents.message_content = True
 intents.members = True
@@ -41,4 +42,10 @@ class MeetBot(commands.Bot):
 bot = MeetBot()
 
 if __name__ == "__main__":
+    print("Main")
+    load_dotenv()
+    TOKEN = os.getenv('DISCORD_BOT')
+    GUILD_ID = discord.Object(id=1469781030989992091)
+
+    print(TOKEN)
     bot.run(TOKEN)

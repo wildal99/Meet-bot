@@ -8,6 +8,7 @@ import requests
 import json
 import os
 
+
 def openRouterCall(message, systemPrompt):
     load_dotenv()
     openRouterKey = os.getenv('OR_API_KEY')
