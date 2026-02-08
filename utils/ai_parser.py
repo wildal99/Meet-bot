@@ -52,6 +52,7 @@ def parse_schedule_intent(prompt_text, user_timezone="UTC"):
         response = model.generate_content(system_prompt)
         # Clean up response (sometimes Gemini wraps JSON in ```json ... ```)
         cleaned_text = response.text.replace("```json", "").replace("```", "").strip()
+        print("Gemini Response: ")  # Debugging output
         
         return json.loads(cleaned_text)
     except Exception as e:
