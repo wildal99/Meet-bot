@@ -5,7 +5,7 @@ import datetime
 import re
 
 # Import our helper tools
-from utils.gemini import parse_schedule_intent
+from utils.ai_parser import parse_schedule_intent
 from utils.gcal_helper import check_busy_times
 from database import get_user_data
 
