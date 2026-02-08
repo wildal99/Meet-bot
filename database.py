@@ -64,6 +64,17 @@ def get_user_data(discord_id):
         return dict(row) # Convert sqlite3.Row to a standard Python dict
     return None
 
+def get_user_token(discord_user_id):
+    """
+    Returns the token info if user exists, or None if they don't.
+    """
+    conn = sqlite3.connect('meetbot.db')
+    c = conn.cursor()
+    c.execute("SELECT * FROM users WHERE discord_id=?", (discord_user_id,))
+    data = c.fetchone()
+    conn.close()
+    return data # Returns None if no user found
+
 # Run initialization immediately when this file is imported
 # This ensures the DB file exists before we try to use it
 if __name__ == "__main__":

@@ -26,14 +26,17 @@ class Onboarding(commands.Cog):
                 scopes=SCOPES
             )
             flow.redirect_uri = REDIRECT_URI
+            
+            combined_state = f"{interaction.user.id}_{interaction.channel_id}"
 
             # 3. Generate the URL
-            # CRITICAL: We pass the user's Discord ID as the 'state'.
+            # We pass the user's Discord ID as the 'state'.
             # This is how server.py knows who is logging in.
             authorization_url, state = flow.authorization_url(
                 access_type='offline',
                 include_granted_scopes='true',
-                state=str(interaction.user.id)
+                state=combined_state,
+                prompt='consent'
             )
 
             # 4. Send the link
@@ -47,6 +50,23 @@ class Onboarding(commands.Cog):
             
         except Exception as e:
             await interaction.followup.send(f"An error occurred: {e}", ephemeral=True)
-
+    
+    @app_commands.command(name="status", description="Check if you are linked to Meetbot")
+    async def status(self, interaction: discord.Interaction):
+        user_data = get_user_token(interaction.user.id)
+        
+        if user_data:
+            # Public message (everyone can see you are ready)
+            await interaction.response.send_message(
+                f"✅ **Verified:** {interaction.user.mention} has linked their calendar!",
+                ephemeral=False 
+            )
+        else:
+            # Private message (don't embarrass them publicly)
+            await interaction.response.send_message(
+                f"❌ **Not Linked:** You haven't linked your calendar yet. Use `/link` to get started.",
+                ephemeral=False
+            )
+    
 async def setup(bot):
     await bot.add_cog(Onboarding(bot))
