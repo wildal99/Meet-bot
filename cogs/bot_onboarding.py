@@ -3,10 +3,9 @@ from discord import app_commands
 from discord.ext import commands
 import google_auth_oauthlib.flow
 import os
-# FIX 1: Import the correct function from database.py
 from database import get_user_data
 
-REDIRECT_URI = os.getenv('REDIRECT_URI', 'http://localhost:5000/callback')
+REDIRECT_URI = os.getenv('REDIRECT_URI', 'http://localhost:5000/callback') #Redirect to the environment variable or fallback on local host
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 
 class Onboarding(commands.Cog):
