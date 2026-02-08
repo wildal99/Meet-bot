@@ -41,6 +41,7 @@ class MeetBot(commands.Bot):
 
 bot = MeetBot()
 
+
 if __name__ == "__main__":
     print("Main")
     load_dotenv()
