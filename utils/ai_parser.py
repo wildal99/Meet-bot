@@ -5,8 +5,7 @@ import google.generativeai as genai
 
 # Configure the API key
 api_key = os.getenv("GEMINI_API_KEY")
-if api_key:
-    genai.configure(api_key=api_key)
+
 
 def parse_schedule_intent(prompt_text, user_timezone="UTC"):
     """
@@ -16,6 +15,8 @@ def parse_schedule_intent(prompt_text, user_timezone="UTC"):
     if not api_key:
         print("❌ Error: GEMINI_API_KEY not found.")
         return None
+    if api_key:
+    genai.configure(api_key=api_key)
 
     # Get current context so Gemini knows what "Next Friday" means
     now = datetime.datetime.now()
